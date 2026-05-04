@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Appointment Status</title>
+  <link rel="stylesheet" href="{{ url_for('patient.static', filename='styledoc.css') }}">
+</head>
+<body>
+
+<div class="sidebar">
+  <h2>MediCare</h2>
+  <p>{{ patient.name }}</p>
+
+  <a href="{{ url_for('patient.patient_dashboard') }}">Dashboard</a>
+  <a href="{{ url_for('patient.patient_book') }}">Book Appointment</a>
+  <a href="{{ url_for('patient.appointment_status') }}">Appointment Status</a>
+  <a href="{{ url_for('patient.consultation_history') }}">Consultation History</a>
+  <a href="{{ url_for('patient.lab_reports') }}">Lab Reports</a>
+  <a href="{{ url_for('patient.pharmacy_search') }}">Pharmacy</a>
+  <a href="{{ url_for('patient.patient_account') }}">Account</a>
+  <a href="{{ url_for('patient.patient_logout') }}">Logout</a>
+</div>
+
+<div class="main">
+  <div class="section active">
+    <h2>Appointment Status</h2>
+
+    <form method="POST">
+      <input type="date" name="date" required>
+      <button type="submit">Check Status</button>
+    </form>
+
+    {% if error %}
+      <p class="error">{{ error }}</p>
+    {% endif %}
+
+    {% if status_data %}
+      <div class="card">
+        <p><b>Status:</b> {{ status_data.status }}</p>
+        <p><b>Date:</b> {{ status_data.date }}</p>
+
+        {% if status_data.status == "Accepted" %}
+          <p><b>Department:</b> {{ status_data.dept }}</p>
+          <p><b>Doctor ID:</b> {{ status_data.doctorId }}</p>
+          <p><b>Doctor Name:</b> {{ status_data.doctorName }}</p>
+          <p><b>Time Slot:</b> {{ status_data.timeSlot }}</p>
+
+        {% elif status_data.status == "Pending" %}
+          <p><b>Department:</b> {{ status_data.dept }}</p>
+          <p><b>Preferred Doctor ID:</b>
+            {{ status_data.preferredDoctor if status_data.preferredDoctor else "Not selected" }}
+          </p>
+          <p><b>Preferred Doctor Name:</b>
+            {{ status_data.preferredDoctorName if status_data.preferredDoctorName else "Not selected" }}
+          </p>
+          <p><b>Summary:</b> {{ status_data.summary }}</p>
+
+        {% elif status_data.status == "Not Found" %}
+          <p>No appointment found for this date.</p>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Patient Account</title>
+  <link rel="stylesheet" href="{{ url_for('patient.static', filename='styledoc.css') }}">
+</head>
+<body>
+
+<h2>My Account</h2>
+<div class="card">
+<p><b>ID:</b> {{ patient.patientId }}</p>
+<p><b>Name:</b> {{ patient.name }}</p>
+<p><b>DOB:</b> {{ patient.DOB }}</p>
+<p><b>Gender:</b> {{ patient.gender }}</p>
+<p><b>Phone:</b> {{ patient.phoneNo }}</p>
+<p><b>Address:</b> {{ patient.address }}</p>
+<p><b>Allergies:</b> {{ patient.allergies }}</p>
+</div>
+<a href="{{ url_for('patient.patient_dashboard') }}">Back</a>
+
+</body>
+</html>

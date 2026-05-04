@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Patient Dashboard</title>
+  <link rel="stylesheet" href="{{ url_for('patient.static', filename='styledoc.css') }}">
+</head>
+<body>
+
+<div class="sidebar">
+  <h2>MediCare</h2>
+  <p>{{ patient.name }}</p>
+
+  <a href="{{ url_for('patient.patient_dashboard') }}">Dashboard</a>
+  <a href="{{ url_for('patient.patient_book') }}">Book Appointment</a>
+  <a href="{{ url_for('patient.appointment_status') }}">Appointment Status</a>
+  <a href="{{ url_for('patient.consultation_history') }}">Consultation History</a>
+  <a href="{{ url_for('patient.lab_reports') }}">Lab Reports</a>
+  <a href="{{ url_for('patient.pharmacy_search') }}">Pharmacy</a>
+  <a href="{{ url_for('patient.patient_account') }}">Account</a>
+  <a href="{{ url_for('patient.patient_logout') }}">Logout</a>
+</div>
+
+<div class="main">
+  <div class="section active">
+    <h2>Welcome, {{ patient.name }}</h2>
+
+    <div class="card">
+      <p><b>Patient ID:</b> {{ patient.patientId }}</p>
+      <p><b>Use the sidebar</b> to access your services.</p>
+    </div>
+
+    <div class="card">
+      <p>Book appointments, check status, view consultation history, and access lab reports.</p>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

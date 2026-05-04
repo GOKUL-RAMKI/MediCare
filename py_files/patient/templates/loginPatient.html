@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Patient Login</title>
+  <link rel="stylesheet" href="{{ url_for('patient.static', filename='styledoc.css') }}">
+</head>
+<body class="auth-body">
+  <div class="auth-card">
+    <h2>Patient Login</h2>
+
+    <form method="POST">
+      <input type="text" name="phoneNo" placeholder="Phone Number" required>
+      <input type="password" name="password" placeholder="Password" required>
+      <button type="submit">Login</button>
+    </form>
+
+    {% if error %}
+      <p class="error">{{ error }}</p>
+    {% endif %}
+
+    <a href="{{ url_for('patient.patient_signup') }}">Create Account</a>
+  </div>
+</body>
+</html>

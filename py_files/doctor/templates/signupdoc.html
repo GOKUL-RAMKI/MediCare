@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Doctor Signup</title>
+  <link rel="stylesheet" href="{{ url_for('doctor.static', filename='styledoc.css') }}">
+</head>
+
+<body class="auth-body">
+
+<div class="auth-card">
+  <h2>Create Doctor Account</h2>
+
+  <form method="POST">
+
+    <input name="name" placeholder="Full Name" required>
+
+    <input name="age" type="number" placeholder="Age" required>
+
+    <input name="gender" placeholder="Gender" required>
+
+    <input name="dept" placeholder="Department" required>
+
+    <input name="speciality" placeholder="Speciality" required>
+
+    <input name="password" type="password" placeholder="Password" required>
+
+    <button type="submit">Create →</button>
+
+  </form>
+
+  {% if success %}
+    <p style="color:green;">
+      Your Doctor ID: <b>{{ success }}</b><br>
+      ⚠️ Save this ID to login!
+    </p>
+  {% endif %}
+
+  {% if error %}
+    <p style="color:red;">{{ error }}</p>
+  {% endif %}
+
+  <br>
+  <a href="{{ url_for('doctor.login') }}">Back to Login</a>
+</div>
+
+</body>
+</html>

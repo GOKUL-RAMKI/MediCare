@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Patient Signup</title>
+  <link rel="stylesheet" href="{{ url_for('patient.static', filename='styledoc.css') }}">
+</head>
+<body class="auth-body">
+  <div class="auth-card">
+    <h2>Create Patient Account</h2>
+
+    <form method="POST">
+      <input type="text" name="name" placeholder="Full Name" required>
+      <input type="text" name="DOB" placeholder="Date of Birth (YYYY-MM-DD)" required>
+      <input type="text" name="gender" placeholder="Gender" required>
+      <input type="text" name="phoneNo" placeholder="Phone Number" required>
+      <input type="text" name="address" placeholder="Address" required>
+      <input type="text" name="allergies" placeholder="Allergies" required>
+      <input type="password" name="password" placeholder="Set Password" required>
+      <button type="submit">Create Account</button>
+    </form>
+
+    {% if error %}
+      <p class="error">{{ error }}</p>
+    {% endif %}
+  </div>
+</body>
+</html>

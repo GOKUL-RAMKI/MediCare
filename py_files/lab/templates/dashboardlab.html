@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Lab Dashboard</title>
+  <link rel="stylesheet" href="{{ url_for('lab.static', filename='styledoc.css') }}">
+</head>
+<body>
+
+<div class="sidebar">
+  <h2>MediCare Lab</h2>
+  <p>ID: {{ lab.labId }}</p>
+
+  <a onclick="show('add-report')">Upload Report</a>
+  <a href="{{ url_for('lab.logout') }}">Logout</a>
+</div>
+
+<div class="main">
+
+  <div id="add-report" class="section active">
+    <h2>Upload Lab Report</h2>
+
+    {% if error %}
+      <p style="color: #e63946;">{{ error }}</p>
+    {% endif %}
+
+    {% if success %}
+      <p style="color: #a7c957;">{{ success }}</p>
+    {% endif %}
+
+    <div class="card">
+      <form method="POST" action="{{ url_for('lab.add_report') }}" enctype="multipart/form-data">
+
+        <input name="patientId" placeholder="Patient ID (e.g., P1234)" required>
+
+        <input name="testName" placeholder="Test Name (e.g., Blood Test)" required>
+
+        <input name="result" placeholder="Result Summary" required>
+
+        <label>Date:</label>
+        <input type="date" name="date" value="{{ today }}" required>
+
+        <label>Upload Report:</label>
+        <input type="file" name="reportFile" required>
+
+        <button type="submit">Submit Report</button>
+
+      </form>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function show(id){
+  document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Select Profile</title>
+  <link rel="stylesheet" href="{{ url_for('patient.static', filename='styledoc.css') }}">
+</head>
+<body class="auth-body">
+  <div class="auth-card">
+    <h2>Select Patient Profile</h2>
+
+    {% for patient in patients %}
+      <div class="card">
+        <p><b>Name:</b> {{ patient.name }}</p>
+        <p><b>Patient ID:</b> {{ patient.patientId }}</p>
+      </div>
+    {% endfor %}
+
+    <form method="POST" action="{{ url_for('patient.select_profile') }}">
+      <input type="text" name="patientId" placeholder="Enter Patient ID" required>
+      <button type="submit">Continue</button>
+    </form>
+
+    {% if error %}
+      <p class="error">{{ error }}</p>
+    {% endif %}
+  </div>
+</body>
+</html>

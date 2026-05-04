@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Consultation History</title>
+  <link rel="stylesheet" href="{{ url_for('patient.static', filename='styledoc.css') }}">
+</head>
+<body>
+
+<div class="sidebar">
+  <h2>MediCare</h2>
+  <p>{{ patient.name }}</p>
+
+  <a href="{{ url_for('patient.patient_dashboard') }}">Dashboard</a>
+  <a href="{{ url_for('patient.patient_book') }}">Book Appointment</a>
+  <a href="{{ url_for('patient.appointment_status') }}">Appointment Status</a>
+  <a href="{{ url_for('patient.consultation_history') }}">Consultation History</a>
+  <a href="{{ url_for('patient.lab_reports') }}">Lab Reports</a>
+  <a href="{{ url_for('patient.pharmacy_search') }}">Pharmacy</a>
+  <a href="{{ url_for('patient.patient_account') }}">Account</a>
+  <a href="{{ url_for('patient.patient_logout') }}">Logout</a>
+</div>
+
+<div class="main">
+  <div class="section active">
+    <h2>Consultation History</h2>
+
+    {% if consultations %}
+      {% for c in consultations %}
+      <div class="card">
+        <p><b>Date:</b> {{ c.date }}</p>
+        <p><b>Doctor Name:</b> {{ c.doctorName }}</p>
+        <p><b>Prescription:</b> {{ c.prescription }}</p>
+        <p><b>Result:</b> {{ c.result }}</p>
+      </div>
+      {% endfor %}
+    {% else %}
+      <div class="card">
+        <p>No consultation history available.</p>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+</body>
+</html>

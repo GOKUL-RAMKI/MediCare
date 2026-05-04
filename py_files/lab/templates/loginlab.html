@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Lab Login</title>
+  <link rel="stylesheet" href="{{ url_for('lab.static', filename='styledoc.css') }}">
+</head>
+<body class="auth-body">
+
+<div class="auth-card">
+  <h2>Lab Login</h2>
+
+  <form method="POST" action="{{ url_for('lab.login') }}">
+    <input name="labId" placeholder="Lab ID (e.g., L123)" required>
+    <button type="submit">Login →</button>
+  </form>
+
+  {% if error %}
+    <p style="color: #e63946;">{{ error }}</p>
+  {% endif %}
+
+  {% if success %}
+    <p style="color: #a7c957;">{{ success }}</p>
+  {% endif %}
+
+  <br>
+  <a href="{{ url_for('lab.signup') }}">Register New Lab</a>
+</div>
+
+</body>
+</html>

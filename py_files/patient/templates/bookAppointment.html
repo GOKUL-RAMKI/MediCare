@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Book Appointment</title>
+  <link rel="stylesheet" href="{{ url_for('patient.static', filename='styledoc.css') }}">
+</head>
+<body>
+
+<div class="sidebar">
+  <h2>MediCare</h2>
+  <p>{{ patient.name }}</p>
+
+  <a href="{{ url_for('patient.patient_dashboard') }}">Dashboard</a>
+  <a href="{{ url_for('patient.patient_book') }}">Book Appointment</a>
+  <a href="{{ url_for('patient.appointment_status') }}">Appointment Status</a>
+  <a href="{{ url_for('patient.consultation_history') }}">Consultation History</a>
+  <a href="{{ url_for('patient.lab_reports') }}">Lab Reports</a>
+  <a href="{{ url_for('patient.pharmacy_search') }}">Pharmacy</a>
+  <a href="{{ url_for('patient.patient_account') }}">Account</a>
+  <a href="{{ url_for('patient.patient_logout') }}">Logout</a>
+</div>
+
+<div class="main">
+  <div class="section active">
+    <h2>Book Appointment</h2>
+
+    <form method="POST">
+      <input name="dept" placeholder="Department" required>
+      <input name="preferredDoctor" placeholder="Preferred Doctor ID (optional)">
+      <input type="date" name="date" required>
+      <textarea name="summary" placeholder="Describe your illness briefly" required></textarea>
+      <button type="submit">Book Appointment</button>
+    </form>
+
+    {% if error %}
+      <p class="error">{{ error }}</p>
+    {% endif %}
+
+    {% if success %}
+      <p class="success">{{ success }}</p>
+    {% endif %}
+
+    <h3>Available Doctors</h3>
+
+    {% for d in doctors %}
+    <div class="card">
+      <p><b>{{ d.doctorName }}</b></p>
+      <p>Doctor ID: {{ d.doctorId }}</p>
+      <p>Department: {{ d.dept }}</p>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+</body>
+</html>

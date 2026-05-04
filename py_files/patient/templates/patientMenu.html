@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Patient Portal</title>
+  <link rel="stylesheet" href="{{ url_for('patient.static', filename='styledoc.css') }}">
+</head>
+<body class="auth-body">
+  <div class="auth-card">
+    <h2>Hospital Management System</h2>
+    <a href="{{ url_for('patient.patient_login') }}"><button>Login</button></a>
+    <br><br>
+    <a href="{{ url_for('patient.patient_signup') }}"><button>Signup</button></a>
+  </div>
+</body>
+</html>

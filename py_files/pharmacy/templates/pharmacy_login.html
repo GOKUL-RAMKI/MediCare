@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pharmacy Login</title>
+  <link rel="stylesheet" href="{{ url_for('pharmacy.static', filename='styledoc.css') }}">
+</head>
+
+<body class="auth-body">
+
+<div class="auth-card">
+  <h2>Pharmacy Login</h2>
+
+  <form method="POST">
+    <input type="password" name="password" placeholder="Enter Password" required>
+    <button type="submit">Login →</button>
+  </form>
+
+  {% if error %}
+    <p style="color:red;">{{ error }}</p>
+  {% endif %}
+</div>
+
+</body>
+</html>

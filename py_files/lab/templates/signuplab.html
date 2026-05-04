@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Lab Signup</title>
+  <link rel="stylesheet" href="{{ url_for('lab.static', filename='styledoc.css') }}">
+</head>
+
+<body class="auth-body">
+
+<div class="auth-card">
+
+  <h2>Create Lab Account</h2>
+
+  <form method="POST">
+    <button type="submit">Generate Lab ID</button>
+  </form>
+
+  {% if lab_id %}
+    <div style="margin-top: 20px; padding: 15px; border-radius: 10px; background-color: #1f7a8c;">
+      <p style="color: white; font-size: 18px;">
+        ✅ Your Lab ID:
+        <br><br>
+        <b style="font-size: 24px;">{{ lab_id }}</b>
+      </p>
+
+      <p style="color: #ffd166; margin-top: 10px;">
+        ⚠️ Save this ID! You need it to login.
+      </p>
+    </div>
+  {% endif %}
+
+  {% if error %}
+    <p style="color: red; margin-top: 10px;">{{ error }}</p>
+  {% endif %}
+
+  <br>
+  <a href="{{ url_for('lab.login') }}">← Go to Login</a>
+
+</div>
+
+</body>
+</html>

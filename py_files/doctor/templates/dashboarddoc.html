@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Doctor Dashboard</title>
+  <link rel="stylesheet" href="{{ url_for('doctor.static', filename='styledoc.css') }}">
+</head>
+
+<body>
+
+<div class="sidebar">
+  <h2>Doctor Panel</h2>
+  <p>{{ doctor.doctorName }}</p>
+
+  <a href="{{ url_for('doctor.dashboard', view='appointments') }}">Appointments</a>
+  <a href="{{ url_for('doctor.dashboard', view='schedule') }}">My Schedule</a>
+  <a href="{{ url_for('doctor.dashboard', view='records') }}">Records</a>
+  <a href="{{ url_for('doctor.dashboard', view='write') }}">Write Report</a>
+  <a href="{{ url_for('doctor.doctor_account') }}">Account</a>
+  <a href="{{ url_for('doctor.logout') }}">Logout</a>
+</div>
+
+<div class="main">
+
+  <!-- APPOINTMENTS -->
+  {% if view == 'appointments' %}
+  <h2>Preferred Patients</h2>
+
+  {% for p in preferred %}
+  <div class="card">
+    <p><b>ID:</b> {{ p.patientId }}</p>
+    <p><b>Name:</b> {{ p.name }}</p>
+    <p><b>Problem:</b> {{ p.summary }}</p>
+    <p><b>Date:</b> {{ p.date }}</p>
+
+    <!--  ACCEPT -->
+    <form method="POST" action="{{ url_for('doctor.accept') }}">
+      <input type="hidden" name="patientId" value="{{ p.patientId }}">
+      <input type="hidden" name="dept" value="{{ p.dept }}">
+      <input type="hidden" name="date" value="{{ p.date }}">
+      <input name="timeSlot" placeholder="Time Slot" required>
+      <button>Accept</button>
+    </form>
+
+    <!--  FIXED DECLINE -->
+    <form method="POST" action="{{ url_for('doctor.decline') }}">
+      <input type="hidden" name="patientId" value="{{ p.patientId }}">
+      <input type="hidden" name="date" value="{{ p.date }}">  <!-- 🔥 IMPORTANT -->
+      <button style="color:red;">Decline</button>
+    </form>
+  </div>
+  {% endfor %}
+  {% endif %}
+
+  <h2>General Patients</h2>
+
+  {% for p in others %}
+  <div class="card">
+    <p><b>ID:</b> {{ p.patientId }}</p>
+    <p><b>Name:</b> {{ p.name }}</p>
+    <p><b>Problem:</b> {{ p.summary }}</p>
+    <p><b>Date:</b> {{ p.date }}</p>
+
+    <form method="POST" action="{{ url_for('doctor.accept') }}">
+      <input type="hidden" name="patientId" value="{{ p.patientId }}">
+      <input type="hidden" name="dept" value="{{ p.dept }}">
+      <input type="hidden" name="date" value="{{ p.date }}">
+      <input name="timeSlot" placeholder="Time Slot" required>
+      <button>Accept</button>
+    </form>
+
+    <form method="POST" action="{{ url_for('doctor.decline') }}"> 
+      <input type="hidden" name="patientId" value="{{ p.patientId }}">
+      <input type="hidden" name="date" value="{{ p.date }}">
+      <button style="color:red;">Decline</button>
+    </form>
+  </div>
+  {% endfor %}
+
+  <!-- SCHEDULE -->
+  {% if view == 'schedule' %}
+  <h2>My Schedule</h2>
+
+  {% for a in my_appts %}
+  <div class="card">
+    <p><b>Patient:</b> {{ a.patientId }}</p>
+    <p><b>Name:</b> {{ a.name }}</p>
+    <p><b>Date:</b> {{ a.date }}</p>
+    <p><b>Time:</b> {{ a.timeSlot }}</p>
+  </div>
+  {% endfor %}
+  {% endif %}
+
+
+  <!-- RECORDS -->
+  {% if view == 'records' %}
+  <h2>Search Records</h2>
+
+  <form method="GET">
+    <input name="search" placeholder="Patient ID">
+    <input type="hidden" name="view" value="records">
+    <button>Search</button>
+  </form>
+
+  {% for r in records %}
+  <div class="card">
+    <p><b>Patient:</b> {{ r.patientId }}</p>
+    <p><b>Name:</b> {{ r.name }}</p>
+    <p><b>Prescription:</b> {{ r.prescription }}</p>
+    <p><b>Result:</b> {{ r.result }}</p>
+  </div>
+  {% endfor %}
+  {% endif %}
+
+
+  <!-- WRITE REPORT -->
+  {% if view == 'write' %}
+  <h2>Write Report</h2>
+
+  {% if error %}
+  <div style="color: red; background-color: #ffe6e6; padding: 10px; margin: 10px 0; border-radius: 5px;">
+    <strong>Error:</strong> {{ error }}
+  </div>
+  {% endif %}
+
+  <form method="POST" action="{{ url_for('doctor.submit_report') }}">
+    <input name="patientId" placeholder="Patient ID" required>
+    <textarea name="prescription" placeholder="Prescription"></textarea>
+    <textarea name="result" placeholder="Result"></textarea>
+    <button type="submit">Submit</button>
+  </form>
+  {% endif %}
+
+</div>
+
+</body>
+</html>

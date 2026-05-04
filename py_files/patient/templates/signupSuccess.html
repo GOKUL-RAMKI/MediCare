@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Signup Success</title>
+  <link rel="stylesheet" href="{{ url_for('patient.static', filename='styledoc.css') }}">
+</head>
+<body class="auth-body">
+  <div class="auth-card">
+    <h2>Account Created</h2>
+    <p>Your Patient ID is:</p>
+    <h3>{{ patient_id }}</h3>
+    <p>Please save this Patient ID. You will need it later.</p>
+    <a href="{{ url_for('patient.patient_login') }}"><button>Go to Login</button></a>
+  </div>
+</body>
+</html>

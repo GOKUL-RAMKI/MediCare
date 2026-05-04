@@ -1,0 +1,90 @@
+body {
+  margin: 0;
+  font-family: sans-serif;
+  background: linear-gradient(135deg, #0a192f, #1a3a5f);
+  color: white;
+}
+
+/* layout */
+.sidebar {
+  width: 220px;
+  height: 100vh;
+  position: fixed;
+  background: rgba(0,0,0,0.5);
+  padding: 20px;
+}
+
+.sidebar a {
+  display: block;
+  margin: 10px 0;
+  cursor: pointer;
+  color: #8ecae6;
+}
+
+.main {
+  margin-left: 240px;
+  padding: 20px;
+}
+
+/* sections */
+.section {
+  display: none;
+}
+
+.section.active {
+  display: block;
+}
+
+/* cards */
+.card {
+  background: rgba(255,255,255,0.1);
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 10px;
+}
+
+/* auth */
+.auth-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.auth-card {
+  background: rgba(0,0,0,0.6);
+  padding: 30px;
+  border-radius: 10px;
+}
+
+/* inputs */
+input, textarea {
+  width: 90%;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+}
+
+/* buttons */
+button {
+  padding: 10px;
+  background: #219ebc;
+  border: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+button:hover {
+  background: #00b4d8;
+}
+
+.danger {
+  background: #e63946;
+}
+
+/* error */
+.error {
+  color: red;
+}

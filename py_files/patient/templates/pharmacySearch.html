@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pharmacy</title>
+  <link rel="stylesheet" href="{{ url_for('patient.static', filename='styledoc.css') }}">
+</head>
+<body>
+
+<div class="sidebar">
+  <h2>MediCare</h2>
+  <p>{{ patient.name }}</p>
+
+  <a href="{{ url_for('patient.patient_dashboard') }}">Dashboard</a>
+  <a href="{{ url_for('patient.patient_book') }}">Book Appointment</a>
+  <a href="{{ url_for('patient.appointment_status') }}">Appointment Status</a>
+  <a href="{{ url_for('patient.consultation_history') }}">Consultation History</a>
+  <a href="{{ url_for('patient.lab_reports') }}">Lab Reports</a>
+  <a href="{{ url_for('patient.pharmacy_search') }}">Pharmacy</a>
+  <a href="{{ url_for('patient.patient_account') }}">Account</a>
+  <a href="{{ url_for('patient.patient_logout') }}">Logout</a>
+</div>
+
+<div class="main">
+  <div class="section active">
+    <h2>Pharmacy Search</h2>
+
+    <form method="POST">
+      <input type="hidden" name="action" value="search">
+      <input type="text" name="keyword" placeholder="Enter Drug Name or Drug ID" value="{{ keyword }}" required>
+      <button type="submit">Search</button>
+    </form>
+
+    {% if error %}
+      <p class="error">{{ error }}</p>
+    {% endif %}
+
+    {% if success %}
+      <p class="success">{{ success }}</p>
+    {% endif %}
+
+    {% if drugs %}
+      {% for d in drugs %}
+      <div class="card">
+        <p><b>Drug ID:</b> {{ d.drugId }}</p>
+        <p><b>Drug Name:</b> {{ d.drugName }}</p>
+        <p><b>Expiry Date:</b> {{ d.expiryDate }}</p>
+        <p><b>Stock:</b> {{ d.quantity }} {{ d.unit }}</p>
+        <p><b>Price:</b> Rs.{{ "%.2f"|format(d.price) }}</p>
+
+        <form method="POST" style="margin-top:10px;">
+          <input type="hidden" name="action" value="order">
+          <input type="hidden" name="keyword" value="{{ keyword }}">
+          <input type="hidden" name="drugId" value="{{ d.drugId }}">
+          <input type="number" name="quantity" min="1" placeholder="Enter quantity" required>
+          <button type="submit" name="preview" value="yes">Check Price</button>
+        </form>
+      </div>
+      {% endfor %}
+    {% endif %}
+    
+    {% if total_price %}
+  <div class="card">
+    <h3>Total Price: Rs.{{ "%.2f"|format(total_price) }}</h3>
+
+    <form method="POST">
+      <input type="hidden" name="action" value="order">
+      <input type="hidden" name="drugId" value="{{ confirm_data.drugId }}">
+      <input type="hidden" name="quantity" value="{{ confirm_data.quantity }}">
+      <input type="hidden" name="keyword" value="{{ keyword }}">
+      <input type="hidden" name="preview" value="no">
+
+      <button type="submit">Confirm Order</button>
+    </form>
+  </div>
+{% endif %}
+  </div>
+</div>
+
+</body>
+</html>

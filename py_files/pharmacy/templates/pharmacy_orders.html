@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Orders</title>
+  <link rel="stylesheet" href="{{ url_for('pharmacy.static', filename='styledoc.css') }}">
+</head>
+
+<body>
+
+<div class="main">
+
+  <h2>Pending Orders</h2>
+
+  {% if orders %}
+    {% for o in orders %}
+      <div class="card">
+        <p><b>Patient:</b> {{ o.patient }}</p>
+        <p><b>Drug:</b> {{ o.drugName }} ({{ o.drugId }})</p>
+        <p><b>Quantity:</b> {{ o.quantity }}</p>
+
+        <a href="{{ url_for('pharmacy.accept_order', index=loop.index0) }}" 
+           style="color:green; margin-right:10px;">
+          Accept
+        </a>
+
+        <a href="{{ url_for('pharmacy.decline_order', index=loop.index0) }}" 
+           style="color:red;">
+          Decline
+        </a>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p>No pending orders.</p>
+  {% endif %}
+
+  <br>
+  <a href="{{ url_for('pharmacy.dashboard') }}">← Back to Dashboard</a>
+
+</div>
+
+</body>
+</html>

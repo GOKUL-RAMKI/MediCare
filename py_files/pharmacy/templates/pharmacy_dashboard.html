@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pharmacy Dashboard</title>
+  <link rel="stylesheet" href="{{ url_for('pharmacy.static', filename='styledoc.css') }}">
+</head>
+
+<body>
+
+<div class="sidebar">
+  <h2>Pharmacy</h2>
+
+  <a href="{{ url_for('pharmacy.dashboard') }}">Inventory</a>
+  <a href="{{ url_for('pharmacy.orders') }}">Orders</a>
+  <a href="{{ url_for('pharmacy.logout') }}">Logout</a>
+</div>
+
+<div class="main">
+
+  <h2>Inventory</h2>
+
+  <!-- ADD STOCK -->
+  <div class="card">
+    <h3>Add Stock</h3>
+
+    <form method="POST" action="{{ url_for('pharmacy.add_stock') }}">
+      <input name="drugId" placeholder="Drug ID" required>
+      <input name="batchId" placeholder="Batch ID" required>
+      <input name="drugName" placeholder="Drug Name (Enter with amount of ml/mg/g)" required>
+
+      <input name="quantity" placeholder="Quantity" required>
+      <input name="price" placeholder="Price" required>
+
+      <input name="drugType" placeholder="Drug Type" required>
+
+      <label>Expiry Date:</label>
+      <input type="date" name="expiryDate" required>
+
+      <button type="submit">Add Stock</button>
+    </form>
+  </div>
+
+  <!-- INVENTORY TABLE -->
+  <div class="card">
+    <h3>Available Drugs</h3>
+
+    {% if drugs %}
+    <table border="1" cellpadding="10">
+      <tr>
+        <th>Drug ID</th>
+        <th>Batch ID</th>
+        <th>Name</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Expiry</th>
+        <th>Type</th>
+      </tr>
+
+      {% for d in drugs %}
+      <tr>
+        <td>{{ d.drugId }}</td>
+        <td>{{ d.batchId }}</td>
+        <td>{{ d.drugName }}</td>
+        <td>{{ d.quantity }}</td>
+        <td>{{ d.price }}</td>
+        <td>{{ d.expiryDate }}</td>
+        <td>{{ d.drugType }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+    {% else %}
+      <p>No inventory available.</p>
+    {% endif %}
+  </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Lab Reports</title>
+  <link rel="stylesheet" href="{{ url_for('patient.static', filename='styledoc.css') }}">
+</head>
+<body>
+
+<div class="sidebar">
+  <h2>MediCare</h2>
+  <p>{{ patient.patientName }}</p>
+
+  <a href="{{ url_for('patient.patient_dashboard') }}">Dashboard</a>
+  <a href="{{ url_for('patient.patient_book') }}">Book Appointment</a>
+  <a href="{{ url_for('patient.appointment_status') }}">Appointment Status</a>
+  <a href="{{ url_for('patient.consultation_history') }}">Consultation History</a>
+  <a href="{{ url_for('patient.lab_reports') }}">Lab Reports</a>
+  <a href="{{ url_for('patient.pharmacy_search') }}">Pharmacy</a>
+  <a href="{{ url_for('patient.patient_account') }}">Account</a>
+  <a href="{{ url_for('patient.patient_logout') }}">Logout</a>
+</div>
+
+<div class="main">
+  <div class="section active">
+    <h2>Lab Reports</h2>
+
+    {% if reports %}
+      {% for r in reports %}
+      <div class="card">
+        <p><b>Test Name:</b> {{ r.testName }}</p>
+        <p><b>Result:</b> {{ r.result }}</p>
+        <p><b>Date:</b> {{ r.date }}</p>
+        <a href="{{ url_for('patient.download_lab_report', lab_id=r.labId) }}">
+          <button type="button">Download Report</button>
+        </a>
+      </div>
+      {% endfor %}
+    {% else %}
+      <div class="card">
+        <p>No lab reports available.</p>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+</body>
+</html>
